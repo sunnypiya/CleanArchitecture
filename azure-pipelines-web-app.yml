@@ -1,0 +1,30 @@
+# ASP.NET Core
+# Build and test ASP.NET Core projects targeting .NET Core.
+# Add steps that run tests, create a NuGet package, deploy, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/languages/dotnet-core
+
+trigger:
+- main
+
+pool:
+  vmImage: ubuntu-latest
+
+variables:
+  buildConfiguration: 'Release'
+
+steps:
+- script: dotnet build --configuration $(buildConfiguration) $(Build.SourcesDirectory)/PTG.NextStep/PTG.NextStep.sln
+  displayName: 'dotnet build $(buildConfiguration)'
+- task: DotNetCoreCLI@2
+  displayName: 'Prepare bundle'
+  inputs:
+    command: 'publish'
+    arguments: '--configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)'
+    projects: '**/*.csproj'
+- task: AzureRmWebAppDeployment@4
+  inputs:
+    ConnectionType: 'AzureRM'
+    azureSubscription: 'PensionPro+ ENV Development (48d0b338-e117-4a6b-96e2-9f3bfc7aea6b)'
+    appType: 'webAppLinux'
+    WebAppName: 'webapp2-ptg-ppp-dev-platform-nextstep-api'
+    packageForLinux: '$(build.artifactStagingDirectory)/**/*.zip'

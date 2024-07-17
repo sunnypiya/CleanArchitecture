@@ -1,0 +1,16 @@
+{
+  "link": 1130,
+  "auditLink": 1130,
+  "retirementBoard": "009",
+  "beginDate": "1978-01-01T00:00:00",
+  "endDate": "1978-01-01T00:00:00",
+  "adjustmentDescription": "",
+  "serviceAdjustment": 0,
+  "service": 0.4,
+  "open": "N",
+  "buybackMakeupFlag": "R",
+  "serviceType": "RG",
+  "servicePercentage": "100",
+  "xferRecord": "N",
+  "memberGroup": "1"
+}
